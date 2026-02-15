@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Tailwind config to enable class-based dark mode
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    <title>Freelance Portfolio</title>
+</head>
+<body class="bg-white text-slate-900 dark:bg-slate-900 dark:text-white transition-colors duration-300">
+
+    <nav class="p-6 flex justify-between items-center max-w-6xl mx-auto">
+        <div class="text-2xl font-bold tracking-tighter">STUDIO. JS</div>
+        <button id="theme-toggle" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:ring-2 ring-indigo-400 transition-all">
+            <svg id="theme-toggle-light-icon" class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"></path></svg>
+            <svg id="theme-toggle-dark-icon" class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+        </button>
+    </nav>
+
+    <section class="relative flex flex-col items-center justify-center min-h-[80vh] px-6 text-center overflow-hidden">
+    
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-indigo-500/20 dark:bg-indigo-600/20 blur-[120px] rounded-full -z-10 pointer-events-none"></div>
+
+    <span class="px-4 py-1.5 rounded-full bg-indigo-100 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-300 text-sm font-medium mb-6 backdrop-blur-sm">
+        Available for new projects
+    </span>
+
+    <h1 class="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight z-10">
+        I build <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-600">digital experiences</span> that scale.
+    </h1>
+
+    <p class="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mb-10 z-10">
+        I help businesses grow by building high-performance websites that <strong>turn visitors into customers.</strong>
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-4 z-10">
+        <a href="#" class="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-semibold shadow-lg shadow-indigo-500/20 transition-all hover:-translate-y-1">View Work</a>
+        <a href="#" class="px-8 py-4 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 rounded-xl font-semibold transition-all border border-transparent hover:border-slate-400 dark:hover:border-slate-500">Let's Talk</a>
+    </div>
+</section>
+
+    <script src="app.js"></script>
+</body>
+</html>
+
+
+
+<--------Javascript--------->
+const themeToggleBtn = document.getElementById('theme-toggle');
+const darkIcon = document.getElementById('theme-toggle-dark-icon');
+const lightIcon = document.getElementById('theme-toggle-light-icon');
+
+// 1. Initial Theme Check
+if (localStorage.getItem('color-theme') === 'dark' || 
+    (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.documentElement.classList.add('dark');
+    lightIcon.classList.remove('hidden');
+} else {
+    document.documentElement.classList.remove('dark');
+    darkIcon.classList.remove('hidden');
+}
+
+// 2. Toggle Event Listener
+themeToggleBtn.addEventListener('click', function() {
+    // Toggle Icons
+    darkIcon.classList.toggle('hidden');
+    lightIcon.classList.toggle('hidden');
+
+    // If set via local storage previously
+    if (localStorage.getItem('color-theme')) {
+        if (localStorage.getItem('color-theme') === 'light') {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('color-theme', 'dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('color-theme', 'light');
+        }
+    } else {
+        // If NOT set via local storage (first time toggle)
+        if (document.documentElement.classList.contains('dark')) {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('color-theme', 'light');
+        } else {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('color-theme', 'dark');
+        }
+    }
+});
