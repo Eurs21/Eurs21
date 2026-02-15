@@ -44,25 +44,50 @@ const contactForm = document.getElementById('contact-form');
 contactForm.addEventListener('submit', function(e) {
     e.preventDefault();
     
-    // Change button text to show "Sending..."
     const btn = contactForm.querySelector('button');
     const originalText = btn.innerText;
     btn.innerText = "Sending...";
     btn.disabled = true;
 
-    // Simulate an API call
-    setTimeout(() => {
-        btn.innerText = "Message Sent! ✓";
-        btn.classList.replace('bg-indigo-600', 'bg-emerald-500');
-        contactForm.reset();
-        
+    // Capture the form data
+    const formData = new FormData(contactForm);
+    const object = Object.fromEntries(formData);
+    const json = JSON.stringify(object);
+
+    // Send the data to Web3Forms
+    fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: json
+    })
+    .then(async (response) => {
+        let json = await response.json();
+        if (response.status == 200) {
+            // SUCCESS
+            btn.innerText = "Message Sent! ✓";
+            btn.classList.replace('bg-indigo-600', 'bg-emerald-500');
+            contactForm.reset();
+        } else {
+            // ERROR
+            console.log(response);
+            btn.innerText = "Error! Try again.";
+        }
+    })
+    .catch(error => {
+        console.log(error);
+        btn.innerText = "Something went wrong.";
+    })
+    .then(() => {
         // Reset button after 3 seconds
         setTimeout(() => {
             btn.innerText = originalText;
             btn.classList.replace('bg-emerald-500', 'bg-indigo-600');
             btn.disabled = false;
         }, 3000);
-    }, 1500);
+    });
 });
 // Smooth Scroll for "Let's Talk" button
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
