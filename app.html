@@ -150,6 +150,64 @@
 
     </div>
 </section>
+<section id="contact" class="max-w-4xl mx-auto px-6 py-24">
+    <div class="bg-white dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 rounded-[2rem] p-8 md:p-12 shadow-xl backdrop-blur-md relative overflow-hidden">
+        
+        <div class="absolute -top-24 -right-24 w-48 h-48 bg-indigo-500/10 blur-[80px] rounded-full"></div>
+
+        <div class="text-center mb-10">
+            <h2 class="text-3xl font-bold mb-2">Let's work together</h2>
+            <p class="text-slate-500 dark:text-slate-400">Ready to start your next big project? Drop me a line below.</p>
+        </div>
+
+        <form id="contact-form" class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-sm font-medium mb-2 opacity-70">Your Name</label>
+                    <input type="text" required class="w-full px-5 py-4 rounded-xl bg-slate-100 dark:bg-slate-900/50 border border-transparent focus:border-indigo-500 focus:ring-0 transition-all outline-none" placeholder="John Doe">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2 opacity-70">Email Address</label>
+                    <input type="email" required class="w-full px-5 py-4 rounded-xl bg-slate-100 dark:bg-slate-900/50 border border-transparent focus:border-indigo-500 focus:ring-0 transition-all outline-none" placeholder="john@example.com">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium mb-2 opacity-70">What are you looking for?</label>
+                <select class="w-full px-5 py-4 rounded-xl bg-slate-100 dark:bg-slate-900/50 border border-transparent focus:border-indigo-500 transition-all outline-none appearance-none">
+                    <option>Web Development</option>
+                    <option>UI/UX Design</option>
+                    <option>Full-Stack Project</option>
+                    <option>Consultation</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium mb-2 opacity-70">Message</label>
+                <textarea rows="4" required class="w-full px-5 py-4 rounded-xl bg-slate-100 dark:bg-slate-900/50 border border-transparent focus:border-indigo-500 transition-all outline-none" placeholder="Tell me about your project..."></textarea>
+            </div>
+
+            <button type="submit" class="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold shadow-lg shadow-indigo-500/30 transition-all active:scale-[0.98]">
+                Send Message
+            </button>
+        </form>
+    </div>
+</section>
+<footer class="max-w-6xl mx-auto px-6 pb-12">
+    <div class="flex flex-col md:flex-row items-center justify-between p-8 rounded-3xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 gap-6">
+        <div>
+            <div class="text-xl font-bold tracking-tighter mb-2">STUDIO.JS</div>
+            <p class="text-sm text-slate-500">&copy; 2026 Built with passion & coffee.</p>
+        </div>
+        
+        <div class="flex items-center gap-6">
+            <a href="#" class="text-slate-400 hover:text-indigo-500 transition-colors"><i data-lucide="github"></i></a>
+            <a href="#" class="text-slate-400 hover:text-indigo-500 transition-colors"><i data-lucide="twitter"></i></a>
+            <a href="#" class="text-slate-400 hover:text-indigo-500 transition-colors"><i data-lucide="linkedin"></i></a>
+            <a href="#" class="text-slate-400 hover:text-indigo-500 transition-colors"><i data-lucide="mail"></i></a>
+        </div>
+    </div>
+</footer>
 
     <script src="app.js"></script>
 </body>

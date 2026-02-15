@@ -38,4 +38,30 @@ themeToggleBtn.addEventListener('click', function() {
         }
     }
 });
+// Contact Form Logic
+const contactForm = document.getElementById('contact-form');
+
+contactForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Change button text to show "Sending..."
+    const btn = contactForm.querySelector('button');
+    const originalText = btn.innerText;
+    btn.innerText = "Sending...";
+    btn.disabled = true;
+
+    // Simulate an API call
+    setTimeout(() => {
+        btn.innerText = "Message Sent! ✓";
+        btn.classList.replace('bg-indigo-600', 'bg-emerald-500');
+        contactForm.reset();
+        
+        // Reset button after 3 seconds
+        setTimeout(() => {
+            btn.innerText = originalText;
+            btn.classList.replace('bg-emerald-500', 'bg-indigo-600');
+            btn.disabled = false;
+        }, 3000);
+    }, 1500);
+});
 lucide.createIcons();
