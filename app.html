@@ -12,6 +12,17 @@
     </script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <title>Freelance Portfolio</title>
+    <style>
+    .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease-out;
+    }
+    .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+</style>
 </head>
 <body class="bg-white text-slate-900 dark:bg-slate-900 dark:text-white transition-colors duration-300">
 
@@ -27,7 +38,7 @@
     
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-indigo-500/20 dark:bg-indigo-600/20 blur-[120px] rounded-full -z-10 pointer-events-none"></div>
 
-    <span class="px-4 py-1.5 rounded-full bg-indigo-100 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-300 text-sm font-medium mb-6 backdrop-blur-sm">
+    <span id="availability-badge" class="px-4 py-1.5 rounded-full bg-indigo-100 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-300 text-sm font-medium mb-6 backdrop-blur-sm">
         Available for new projects
     </span>
 
@@ -41,7 +52,7 @@
 
     <div class="flex flex-col sm:flex-row gap-4 z-10">
         <a href="#work" class="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-semibold shadow-lg shadow-indigo-500/20 transition-all hover:-translate-y-1">View Work</a>
-        <a href="#contact" class="px-8 py-4 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 rounded-xl font-semibold transition-all border border-transparent hover:border-slate-400 dark:hover:border-slate-500">Let's Talk</a>
+        <a href="#contact" id="hero-contact-btn" class="px-8 py-4 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 rounded-xl font-semibold transition-all border border-transparent hover:border-slate-400 dark:hover:border-slate-500">Let's Talk</a>
     </div>
     <div class="mt-20 pt-10 border-t border-slate-200 dark:border-slate-800 w-full max-w-4xl z-10">
     <p class="text-sm font-medium uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-8">
@@ -55,7 +66,7 @@
     </div>
 </div>
 </section>
-<section class="max-w-6xl mx-auto px-6 py-24">
+<section class="max-w-6xl mx-auto px-6 py-24 reveal">
     <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
         <div class="max-w-xl">
             <h2 class="text-3xl md:text-4xl font-bold mb-4">Technical Arsenal</h2>
@@ -100,7 +111,7 @@
 
     </div>
 </section>
-<section id="work" class="max-w-6xl mx-auto px-6 py-24 bg-slate-50/50 dark:bg-slate-900/50 rounded-[3rem]">
+<section id="work" class="max-w-6xl mx-auto px-6 py-24 bg-slate-50/50 dark:bg-slate-900/50 rounded-[3rem] reveal">
     <div class="text-center mb-16">
         <h2 class="text-3xl md:text-5xl font-bold mb-4">Selected Works</h2>
         <p class="text-slate-600 dark:text-slate-400 max-w-xl mx-auto">A glimpse into the digital solutions I've engineered recently.</p>
@@ -212,5 +223,31 @@
 </footer>
 
     <script src="app.js"></script>
+
+    <div id="admin-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-6 bg-slate-900/60 backdrop-blur-md">
+    <div class="bg-white dark:bg-slate-800 w-full max-w-md rounded-3xl p-8 shadow-2xl border border-slate-200 dark:border-slate-700">
+        <div id="admin-login-step">
+            <h2 class="text-2xl font-bold mb-4 text-center">Studio Auth</h2>
+            <input type="password" id="admin-password" class="w-full px-5 py-4 rounded-xl bg-slate-100 dark:bg-slate-900/50 mb-4 outline-none border-2 border-transparent focus:border-indigo-500" placeholder="Enter Studio Key">
+            <button onclick="checkAdminPass()" class="w-full py-4 bg-indigo-600 text-white rounded-xl font-bold">Login</button>
+        </div>
+
+        <div id="admin-dashboard-step" class="hidden">
+            <h2 class="text-2xl font-bold mb-6 text-center text-indigo-500">Admin Center</h2>
+            <div class="space-y-6">
+                <div class="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-900 rounded-2xl">
+                    <span class="font-medium">Accepting Clients?</span>
+                    <button id="status-toggle-btn" onclick="toggleProjectStatus()" class="px-4 py-2 rounded-lg bg-emerald-500 text-white text-sm font-bold">YES</button>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Waitlist Message</label>
+                    <textarea id="admin-waitlist-msg" class="w-full px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-900 border-none text-sm" rows="3"></textarea>
+                </div>
+                <button onclick="saveAdminSettings()" class="w-full py-4 bg-indigo-600 text-white rounded-xl font-bold shadow-lg shadow-indigo-500/30">Save & Close</button>
+            </div>
+        </div>
+        <button onclick="closeAdmin()" class="w-full mt-4 text-sm text-slate-400 hover:text-slate-600 transition-colors">Cancel</button>
+    </div>
+</div>
 </body>
 </html>

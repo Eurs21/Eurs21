@@ -2,6 +2,110 @@ const themeToggleBtn = document.getElementById('theme-toggle');
 const darkIcon = document.getElementById('theme-toggle-dark-icon');
 const lightIcon = document.getElementById('theme-toggle-light-icon');
 
+// --- SELLER CENTER CONFIG ---
+// --- ADMIN CONFIG ---
+const ADMIN_KEY = "studio2026"; // CHANGE THIS to your secret password
+let logoClicks = 0;
+
+// Load settings from storage or use defaults
+let sellerSettings = JSON.parse(localStorage.getItem('studioSettings')) || {
+    isAvailable: true,
+    waitlistMessage: "I'm currently at full capacity! Secure your spot on the waitlist below."
+};
+
+// 1. Secret Trigger (Click logo 5 times)
+document.querySelector('footer .tracking-tighter').addEventListener('click', () => {
+    logoClicks++;
+    if (logoClicks >= 5) {
+        document.getElementById('admin-modal').classList.remove('hidden');
+        logoClicks = 0;
+    }
+});
+
+// 2. Auth Logic
+function checkAdminPass() {
+    const pass = document.getElementById('admin-password').value;
+    if (pass === ADMIN_KEY) {
+        document.getElementById('admin-login-step').classList.add('hidden');
+        document.getElementById('admin-dashboard-step').classList.remove('hidden');
+        
+        // Sync Dashboard UI
+        document.getElementById('admin-waitlist-msg').value = sellerSettings.waitlistMessage;
+        updateDashboardButton();
+    } else {
+        alert("Incorrect Key");
+    }
+}
+
+// 3. Toggle Status
+function toggleProjectStatus() {
+    sellerSettings.isAvailable = !sellerSettings.isAvailable;
+    updateDashboardButton();
+}
+
+function updateDashboardButton() {
+    const btn = document.getElementById('status-toggle-btn');
+    btn.innerText = sellerSettings.isAvailable ? "YES" : "NO";
+    btn.className = sellerSettings.isAvailable 
+        ? "px-4 py-2 rounded-lg bg-emerald-500 text-white text-sm font-bold" 
+        : "px-4 py-2 rounded-lg bg-red-500 text-white text-sm font-bold";
+}
+
+// 4. Save and Update Site
+function saveAdminSettings() {
+    sellerSettings.waitlistMessage = document.getElementById('admin-waitlist-msg').value;
+    localStorage.setItem('studioSettings', JSON.stringify(sellerSettings));
+    updateAvailabilityUI();
+    closeAdmin();
+}
+
+// Function to show the modal
+function openAdmin() {
+    const modal = document.getElementById('admin-modal');
+    modal.classList.remove('hidden'); // Take away the cloak
+    modal.classList.add('flex');      // Turn on the centering engine
+}
+
+// Function to hide the modal
+function closeAdmin() {
+    const modal = document.getElementById('admin-modal');
+    modal.classList.add('hidden');    // Put the cloak back on
+    modal.classList.remove('flex');   // Turn off the centering engine
+}
+
+// Keep your existing updateAvailabilityUI logic here, just make sure it uses the 'sellerSettings' variable!
+
+// --- AVAILABILITY LOGIC ---
+const updateAvailabilityUI = () => {
+    const badge = document.getElementById('availability-badge');
+    const heroBtn = document.getElementById('hero-contact-btn');
+    const formContainer = document.getElementById('form-container');
+
+    if (!sellerSettings.isAvailable) {
+        // 1. Update Badge
+        badge.innerText = "Fully Booked";
+        badge.classList.replace('bg-indigo-100', 'bg-slate-200');
+        badge.classList.replace('text-indigo-600', 'text-slate-500');
+
+        // 2. Hide Hero Button
+        if(heroBtn) heroBtn.style.display = 'none';
+
+        // 3. Replace Form with Waitlist Message
+        if(formContainer) {
+            formContainer.innerHTML = `
+                <div class="text-center p-8 border-2 border-dashed border-slate-300 rounded-2xl">
+                    <i data-lucide="clock" class="mx-auto mb-4 text-slate-400"></i>
+                    <p class="text-lg font-medium">${sellerSettings.waitlistMessage}</p>
+                </div>
+            `;
+            lucide.createIcons(); // Re-render the clock icon
+        }
+    }
+};
+
+// Run this on load
+updateAvailabilityUI();
+
 // 1. Initial Theme Check
 if (localStorage.getItem('color-theme') === 'dark' || 
     (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -103,3 +207,22 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 lucide.createIcons();
+
+// Scroll Reveal Logic
+const revealElements = () => {
+    const reveals = document.querySelectorAll(".reveal");
+    
+    reveals.forEach((el) => {
+        const windowHeight = window.innerHeight;
+        const elementTop = el.getBoundingClientRect().top;
+        const elementVisible = 150; // Triggers when element is 150px into view
+
+        if (elementTop < windowHeight - elementVisible) {
+            el.classList.add("active");
+        }
+    });
+};
+
+window.addEventListener("scroll", revealElements);
+// Run once on load to catch elements already in view
+revealElements();
