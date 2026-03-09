@@ -170,7 +170,8 @@
             <h2 class="text-3xl font-bold mb-2">Let's work together</h2>
             <p class="text-slate-500 dark:text-slate-400">Ready to start your next big project? Drop me a line below.</p>
         </div>
-
+        
+        <div id="form-container">
         <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="space-y-6">
             <input type="hidden" name="access_key" value="bd2fd975-0720-4104-a2d4-7323bf14f9d7">
 
@@ -204,6 +205,7 @@
                 Send Message
             </button>
         </form>
+        </div>
     </div>
 </section>
 <footer class="max-w-6xl mx-auto px-6 pb-12">
@@ -222,9 +224,9 @@
     </div>
 </footer>
 
-    <script src="app.js"></script>
+    <script src="index.js"></script>
 
-    <div id="admin-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-6 bg-slate-900/60 backdrop-blur-md">
+    <div id="admin-modal" class="fixed inset-0 z-[100] flex hidden items-center justify-center p-6 bg-slate-900/60 backdrop-blur-md">
     <div class="bg-white dark:bg-slate-800 w-full max-w-md rounded-3xl p-8 shadow-2xl border border-slate-200 dark:border-slate-700">
         <div id="admin-login-step">
             <h2 class="text-2xl font-bold mb-4 text-center">Studio Auth</h2>

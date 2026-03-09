@@ -17,8 +17,8 @@ let sellerSettings = JSON.parse(localStorage.getItem('studioSettings')) || {
 document.querySelector('footer .tracking-tighter').addEventListener('click', () => {
     logoClicks++;
     if (logoClicks >= 5) {
-        document.getElementById('admin-modal').classList.remove('hidden');
-        logoClicks = 0;
+       openAdmin(); // This ensures the 'flex' class is added for centering
+       logoClicks = 0;
     }
 });
 
